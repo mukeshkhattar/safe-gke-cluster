@@ -14,49 +14,35 @@
  * limitations under the License.
  */
 
-resource "random_string" "suffix" {
-  length  = 4
-  special = false
-  upper   = false
-}
 
 
-locals {
-  cluster_type           = "safer-cluster"
-  network_name           = "safer-cluster-network-${var.environment}"
-  subnet_name            = "safer-cluster-subnet-${var.environment}"
-  master_subnet_name     = "safer-cluster-master-subnet-${var.environment}"
-  pods_range_name        = "ip-range-pods-${random_string.suffix.result}"
-  svc_range_name         = "ip-range-svc-${random_string.suffix.result}"
-}
-
-module "gcp-network" {
+module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 2.5"
   project_id   = var.project_id
-  network_name =  local.network_name
+  network_name =  var.network_name
 
   subnets = [
     {
-      subnet_name   = local.subnet_name
+      subnet_name   = var.subnet_name
       subnet_ip     = var.subnet_ip
       subnet_region = var.region
     },
     {
-      subnet_name   = local.master_subnet_name
+      subnet_name   = var.master_subnet_name
       subnet_ip     =  var.master_auth_subnetwork_ip
       subnet_region = var.region
     },
   ]
 
   secondary_ranges = {
-    "${local.subnet_name}" = [
+    (var.subnet_name) = [
       {
-        range_name    = local.pods_range_name
+        range_name    = var.pods_range_name
         ip_cidr_range = var.pods_ip_range
       },
       {
-        range_name    = local.svc_range_name
+        range_name    = var.svc_range_name
         ip_cidr_range = var.svc_ip_range
       },
     ]

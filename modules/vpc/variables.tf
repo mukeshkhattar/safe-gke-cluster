@@ -10,11 +10,6 @@ variable "region" {
   default     = "us-central1"
 }
 
-variable "compute_engine_service_account" {
-  type        = string
-  description = "Service account to associate to the nodes in the cluster"
-}
-
 variable "subnet_ip" {
   type        = string
   description = "subnet_ip"
@@ -36,9 +31,30 @@ variable "svc_ip_range" {
   description = "svc_ip_range"
 }
 
-variable "environment" {
+
+variable "subnet_name" {
   type        = string
-  description = "env"
+  description = "subnet_name"
+}
+
+variable "master_subnet_name" {
+  type        = string
+  description = "master_subnet_name"
+}
+
+variable "network_name" {
+  type        = string
+  description = "network_name"
+}
+
+variable "pods_range_name" {
+  type        = string
+  description = "pods_range_name"
+}
+
+variable "svc_range_name" {
+  type        = string
+  description = "svc_range_name"
 }
 
 

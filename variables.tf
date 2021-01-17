@@ -16,7 +16,8 @@ variable "environments" {
       master_auth_subnetwork_ip = string
       pods_ip_range= string
       svc_ip_range = string
-
+      subnet_name = string
+      master_subnet_name = string
     })
   )
 }

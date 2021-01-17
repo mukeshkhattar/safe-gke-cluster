@@ -1,5 +1,4 @@
 
-
 output "network_name" {
   description = "The name of the VPC being created"
   value       = module.vpc.network_name
@@ -20,3 +19,4 @@ output "project_id" {
   description = "The project ID the cluster is in"
   value       = module.vpc.project_id
 }
+
